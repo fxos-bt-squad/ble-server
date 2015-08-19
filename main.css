@@ -1,0 +1,3 @@
+gaia-header .icon.disconnected, gaia-header [data-icon].disconnected {
+    color: gray !important;
+}
