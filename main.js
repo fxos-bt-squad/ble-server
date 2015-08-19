@@ -68,9 +68,13 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     };
 
-    var connectBtn = document.getElementById('connect');
-    connectBtn.addEventListener('click', function() {
-      alert('Not yet implemented!');
+    var els = document.querySelectorAll('gaia-header');
+    [].forEach.call(els, function(el) {
+      el.addEventListener('action', function(e) {
+        if (e.detail.type == 'back') {
+          window.history.back();
+        }
+      });
     });
     var ansSwitchBtn = document.getElementById('ans-switch');
     ansSwitchBtn.addEventListener('change', function() {
@@ -80,6 +84,11 @@ document.addEventListener('DOMContentLoaded', function() {
         removeANS();
       }
     });
+
+    var pages = document.querySelector('gaia-pages');
+    var update = function() { pages.navigate(location.hash.substr(1) || '/'); };
+    addEventListener('hashchange', update);
+    update();
   }
 
   function addANS() {
