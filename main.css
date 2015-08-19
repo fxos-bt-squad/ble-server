@@ -1,3 +1,7 @@
+gaia-list > div > a {
+    color: var(--text-color) !important;
+}
+
 gaia-header .icon.disconnected, gaia-header [data-icon].disconnected {
     color: gray !important;
 }
