@@ -2,8 +2,14 @@ gaia-list > div > a {
     color: var(--text-color) !important;
 }
 
+gaia-list .space-bewteen {
+    justify-content: space-between;
+}
+gaia-list .space-bewteen:before {
+    content: unset;
+}
 gaia-header .icon.disconnected, gaia-header [data-icon].disconnected {
-    color: gray !important;
+    color: var(--text-color) !important;
 }
 
 .custom-response {

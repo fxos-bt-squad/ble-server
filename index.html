@@ -42,27 +42,15 @@
            data-icon="link" aria-label="Connect" data-l10n-id="Connect"></a>
       </gaia-header>
       <gaia-list>
-        <a>
-          <div>
-            <h3>BleFirmata</h3>
-            <p>Address: <b>00:80:5f:9b:34:fb</b></p>
-            <p>RSSI: <b>-60</b></p>
-          </div>
+        <a class="space-bewteen">
+          <label for="scan-switch">
+            <h3>Scan LE Devices</h3>
+          </label>
+          <gaia-switch id="scan-switch" class="divided"></gaia-switch>
         </a>
-        <a>
-          <div>
-            <h3>TiSensorTag</h3>
-            <p>Address: <b>00:80:5f:9b:34:fb</b></p>
-            <p>RSSI: <b>-60</b></p>
-          </div>
-        </a>
-        <a>
-          <div>
-            <h3>FindMe</h3>
-            <p>Address: <b>00:80:5f:9b:34:fb</b></p>
-            <p>RSSI: <b>-60</b></p>
-          </div>
-        </a>
+      </gaia-list>
+      <gaia-sub-header>Devices found</gaia-sub-header>
+      <gaia-list id="device-list">
       </gaia-list>
     </section>
     <section data-route="/">

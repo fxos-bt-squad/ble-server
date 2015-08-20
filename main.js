@@ -85,10 +85,95 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
 
+    var scanSwitch = document.getElementById('scan-switch');
+    scanSwitch.addEventListener('change', function() {
+      if (this.checked) {
+        startDiscoverDevices();
+      } else {
+        stopDiscoverDevices();
+      }
+    });
+
     var pages = document.querySelector('gaia-pages');
-    var update = function() { pages.navigate(location.hash.substr(1) || '/'); };
+    var update = function() {
+      pages.navigate(location.hash.substr(1) || '/');
+    };
     addEventListener('hashchange', update);
     update();
+  }
+
+  var connectionCount = 0;
+  var foundDeviceAddrs;
+  var discoveryHandler;
+  var deviceList = document.getElementById('device-list');
+  var connectionButtons = document.querySelectorAll('.disconnected');
+
+  function startDiscoverDevices() {
+    deviceList.innerHTML = '';
+    foundDeviceAddrs = [];
+    defaultAdapter.startLeScan([]).then(function onResolve(handle) {
+      console.info('Scan started');
+      discoveryHandler = handle;
+      discoveryHandler.ondevicefound = function onDeviceFound(evt) {
+        if (evt.device.gatt && foundDeviceAddrs.indexOf(evt.device.address) < 0) {
+          addDeviceToList(evt.device);
+          foundDeviceAddrs.push(evt.device.address);
+        }
+      }; // ondevice found
+    }).catch(function onReject(reason) {
+      console.error('--> startDiscovery failed', reason);
+    }); //startdiscovery resolve
+  }
+
+  function stopDiscoverDevices() {
+    if (discoveryHandler) {
+      defaultAdapter.stopLeScan(discoveryHandler).then(function onResolve() {
+        console.info('Scan stopped');
+      }).catch(function onReject(reason) {
+        console.log('--> stopDiscovery failed', reason);
+      }); //stopdiscoverty resolve
+    }
+  }
+
+  function updateConnectionState(connectionState) {
+    for (var btn of connectionButtons) {
+      btn.setAttribute('class', connectionState ? 'connected' : 'disconnected');
+    }
+  }
+
+  function addDeviceToList(device) {
+    console.log('Found device', device);
+    var deviceElem = document.createElement('a');
+    var deviceId = 'device-' + device.address.replace(/:/g, '');
+    deviceElem.setAttribute('style', 'justify-content: space-between;');
+    deviceElem.innerHTML = '<label for="' + deviceId + '">' +
+      '<h3>' + device.name + '</h3>' +
+      '<p>Address: <b>' + device.address + '</b></p></label>';
+    var connectSwitch = document.createElement('gaia-switch');
+    connectSwitch.setAttribute('id', deviceId);
+    connectSwitch.addEventListener('change', function() {
+      if (this.checked) {
+        device.gatt.connect().then(function() {
+          console.log('Device connected');
+          connectionCount++;
+          updateConnectionState(true);
+        }).catch(function(e) {
+          console.log('Device connect failed', e);
+        });
+      } else {
+        device.gatt.disconnect().then(function() {
+          console.log('Device disconnected');
+          connectionCount--;
+          if (connectionCount <= 0) {
+            updateConnectionState(false);
+          }
+        }).catch(function(e) {
+          console.log('Device disconnect failed', e);
+        });
+      }
+    });
+    deviceElem.appendChild(connectSwitch);
+    deviceList.appendChild(deviceElem);
   }
 
   function addANS() {
