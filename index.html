@@ -59,15 +59,7 @@
         <a class="disconnected" href="#/connect"
            data-icon="link" aria-label="Connect" data-l10n-id="Connect"></a>
       </gaia-header>
-      <gaia-list>
-        <div>
-          <a href="#/service">
-            <h3>Alert Notification Service</h3>
-            <p><b>00001811-0000-1000-8000-00805f9b34fb</b></p>
-            <p>Is Primary: <b>true</b>, Instance ID: <b>0</b></p>
-          </a>
-          <gaia-switch id="ans-switch" class="divided"></gaia-switch>
-        </div>
+      <gaia-list id="service-list">
       </gaia-list>
     </section>
     <section data-route="/service">
@@ -80,45 +72,27 @@
         <a>
           <div>
             <h3>UUID</h3>
-            <p>00001811-0000-1000-8000-00805f9b34fb</p>
+            <p id="service-uuid"></p>
           </div>
         </a>
         <a>
           <div>
             <h3>Is Primary</h3>
-            <p>true</p>
+            <p id="service-is-primary"></p>
           </div>
         </a>
         <a>
           <div>
             <h3>Instance ID</h3>
-            <p>0</p>
+            <p id="service-instance-id"></p>
           </div>
         </a>
       </gaia-list>
       <gaia-sub-header>Characteristics</gaia-sub-header>
-      <gaia-list>
-        <a href="#/characteristic">
-          <div>
-            <p><b>00001811-0000-1000-8000-00805f9b34fb</b></p>
-            <p>Properties: <b>read,write</b></p>
-            <p>Value: <b>0000</b>, Instance ID: <b>0</b></p>
-          </div>
-        </a>
-        <a href="#/characteristic">
-          <div>
-            <p><b>00001811-0000-1000-8000-00805f9b34fb</b></p>
-            <p>Properties: <b>read,write</b></p>
-            <p>Value: <b>0000</b>, Instance ID: <b>0</b></p>
-          </div>
-        </a>
-        <a href="#/characteristic">
-          <div>
-            <p><b>00001811-0000-1000-8000-00805f9b34fb</b></p>
-            <p>Properties: <b>read,write</b></p>
-            <p>Value: <b>0000</b>, Instance ID: <b>0</b></p>
-          </div>
-        </a>
+      <gaia-list id="characteristic-list">
+      </gaia-list>
+      <gaia-sub-header>Included Services</gaia-sub-header>
+      <gaia-list id="inc-service-list">
       </gaia-list>
     </section>
     <section data-route="/characteristic">
@@ -131,31 +105,31 @@
         <a>
           <div>
             <h3>UUID</h3>
-            <p>00001811-0000-1000-8000-00805f9b34fb</p>
+            <p id="char-uuid"></p>
           </div>
         </a>
         <a>
           <div>
             <h3>Instance ID</h3>
-            <p>0</p>
+            <p id="char-instance-id"></p>
           </div>
         </a>
         <a>
           <div>
             <h3>Value</h3>
-            <p>0000</p>
+            <p id="char-value"></p>
           </div>
         </a>
         <a>
           <div>
             <h3>Permissions</h3>
-            <p>read,write</p>
+            <p id="char-permissions"></p>
           </div>
         </a>
         <a>
           <div>
             <h3>Properties</h3>
-            <p>read,write</p>
+            <p id="char-properties"></p>
           </div>
         </a>
         <a>
@@ -175,28 +149,7 @@
         </a>
       </gaia-list>
       <gaia-sub-header>Descriptors</gaia-sub-header>
-      <gaia-list>
-        <a href="#/descriptor">
-          <div>
-            <p><b>00001811-0000-1000-8000-00805f9b34fb</b></p>
-            <p>Permissions: <b>read,write</b></p>
-            <p>Value: <b>0000</b></p>
-          </div>
-        </a>
-        <a href="#/descriptor">
-          <div>
-            <p><b>00001811-0000-1000-8000-00805f9b34fb</b></p>
-            <p>Permissions: <b>read,write</b></p>
-            <p>Value: <b>0000</b></p>
-          </div>
-        </a>
-        <a href="#/descriptor">
-          <div>
-            <p><b>00001811-0000-1000-8000-00805f9b34fb</b></p>
-            <p>Permissions: <b>read,write</b></p>
-            <p>Value: <b>0000</b></p>
-          </div>
-        </a>
+      <gaia-list id="descriptor-list">
       </gaia-list>
     </section>
     </section>
@@ -210,19 +163,19 @@
         <a>
           <div>
             <h3>UUID</h3>
-            <p>00001811-0000-1000-8000-00805f9b34fb</p>
+            <p id="desc-uuid"></p>
           </div>
         </a>
         <a>
           <div>
             <h3>Value</h3>
-            <p>0000</p>
+            <p id="desc-value"></p>
           </div>
         </a>
         <a>
           <div>
             <h3>Permissions</h3>
-            <p>read,write</p>
+            <p id="desc-permissions"></p>
           </div>
         </a>
         <a>

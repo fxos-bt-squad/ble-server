@@ -9,6 +9,19 @@ document.addEventListener('DOMContentLoaded', function() {
   var defaultAdapter = null;
   defaultAdapter = bluetooth.defaultAdapter;
   var server = null;
+  var services = [];
+  var connectionCount = 0;
+  var foundDeviceAddrs;
+  var discoveryHandler;
+  var deviceList = document.getElementById('device-list');
+  var serviceList = document.getElementById('service-list');
+  var includedServiceList = document.getElementById('inc-service-list');
+  var characteristicList = document.getElementById('characteristic-list');
+  var descriptorList = document.getElementById('descriptor-list');
+  var connectionButtons = document.querySelectorAll('.disconnected');
+  var currentService = null;
+  var currentCharacteristic = null;
+  var currentDescriptor = null;
 
   if (defaultAdapter) {
     console.log('defaultAdapter get!');
@@ -40,6 +53,10 @@ document.addEventListener('DOMContentLoaded', function() {
   function init() {
     initialized = true;
 
+    createAns().then(function(service) {
+      services.push(service);
+      addServiceToList(service);
+    });
     defaultAdapter.onattributechanged = function(evt) {
       console.log('--> _onAdapterAttributeChanged.... ');
       evt.attrs.forEach(function(evtAttr) {
@@ -76,14 +93,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
     });
-    var ansSwitchBtn = document.getElementById('ans-switch');
-    ansSwitchBtn.addEventListener('change', function() {
-      if (this.checked) {
-        addANS();
-      } else {
-        removeANS();
-      }
-    });
 
     var scanSwitch = document.getElementById('scan-switch');
     scanSwitch.addEventListener('change', function() {
@@ -96,17 +105,180 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var pages = document.querySelector('gaia-pages');
     var update = function() {
-      pages.navigate(location.hash.substr(1) || '/');
+      var path = location.hash.substr(1);
+      if (path == '/service') {
+        updateServiceState();
+      } else if (path == '/characteristic') {
+        updateCharacteristicState();
+      } else if (path == '/descriptor') {
+        updateDescriptorState();
+      }
+      pages.navigate(path || '/');
     };
     addEventListener('hashchange', update);
     update();
   }
 
-  var connectionCount = 0;
-  var foundDeviceAddrs;
-  var discoveryHandler;
-  var deviceList = document.getElementById('device-list');
-  var connectionButtons = document.querySelectorAll('.disconnected');
+  var serviceUuid = document.getElementById('service-uuid');
+  var serviceIsPrimary = document.getElementById('service-is-primary');
+  var serviceInstanceId = document.getElementById('service-instance-id');
+  var charUuid = document.getElementById('char-uuid');
+  var charInstanceId = document.getElementById('char-instance-id');
+  var charValue = document.getElementById('char-value');
+  var charPermissions = document.getElementById('char-permissions');
+  var charProperties = document.getElementById('char-properties');
+  var descUuid = document.getElementById('desc-uuid');
+  var descValue = document.getElementById('desc-value');
+  var descPermissions = document.getElementById('desc-permissions');
+
+  function updateServiceState() {
+    serviceUuid.textContent = currentService.uuid;
+    serviceIsPrimary.textContent = currentService.isPrimary;
+    serviceInstanceId.textContent = currentService.instanceId;
+    characteristicList.innerHTML = '';
+    for (var char of currentService.characteristics) {
+      addCharacteristicToList(char);
+    }
+    for (var inc of currentService.includedServices) {
+      addIncludedServiceToList(inc);
+    }
+  }
+
+  function updateCharacteristicState() {
+    charUuid.textContent = currentCharacteristic.uuid;
+    charInstanceId.textContent = currentCharacteristic.instanceId;
+    charValue.textContent = valueToHexString(currentCharacteristic.value);
+    charPermissions.textContent = permissionsToString(currentCharacteristic.permissions);
+    charProperties.textContent = propertiesToString(currentCharacteristic.properties);
+    descriptorList.innerHTML = '';
+    for (var desc of currentCharacteristic.descriptors) {
+      addDescriptorToList(desc);
+    }
+  }
+
+  function updateDescriptorState() {
+    descUuid.textContent = currentDescriptor.uuid;
+    descValue.textContent = valueToHexString(currentDescriptor.value);
+    descPermissions.textContent = permissionsToString(currentDescriptor.permissions);
+
+  }
+
+  function findServiceName(uuid) {
+    if (uuid == '00001811-0000-1000-8000-00805f9b34fb') {
+      return 'Alert Notification Service';
+    }
+    return null;
+  }
+
+  function findCharacteristicName(uuid) {
+    return null;
+  }
+
+  function findDescriptorName(uuid) {
+    return null;
+  }
+
+  function permissionsToString(permissions) {
+    return '';
+  }
+
+  function propertiesToString(properties) {
+    return '';
+  }
+
+  function valueToHexString(value) {
+    var str = '';
+    if (value) {
+      var uint8Array = new Uint8Array(value);
+      for (var i = 0; i < uint8Array.length; i++) {
+        var b = uint8Array[i].toString(16);
+        if (b.length == 1) {
+          str += '0'
+        }
+        str += b;
+      }
+    }
+    return str;
+  }
+  function addServiceToList(service) {
+    console.log('addService', service);
+    var serviceName = findServiceName(service.uuid);
+    var serviceElem = document.createElement('div');
+    serviceElem.className = 'no-before';
+    serviceElem.style.justifyContent = 'space-between';
+    serviceElem.innerHTML = '<a href="#/service">' +
+      (serviceName ? '<h3>' + serviceName + '</h3>' : '') +
+      '<p><b>' + service.uuid + '</b></p>' +
+      '<p>Is Primary: <b>' + service.isPrimary + '</b>, ' +
+      'Instance ID: <b>' + service.instanceId + '</b></p></a>';
+    var serviceSwitch = document.createElement('gaia-switch');
+    serviceSwitch.addEventListener('change', function() {
+      if (this.checked) {
+        addService(service);
+      } else {
+        removeService(service);
+      }
+    });
+    serviceElem.appendChild(serviceSwitch);
+    serviceElem.addEventListener('click', function() {
+      currentService = service;
+    });
+    serviceList.appendChild(serviceElem);
+  }
+
+  function addIncludedServiceToList(service) {
+    console.log('addIncludedService', service);
+    var serviceName = findServiceName(service.uuid);
+    var serviceElem = document.createElement('div');
+    serviceElem.className = 'no-before';
+    serviceElem.style.justifyContent = 'space-between';
+    serviceElem.innerHTML = '<a href="#/service">' +
+      (serviceName ? '<h3>' + serviceName + '</h3>' : '') +
+      '<p><b>' + service.uuid + '</b></p>' +
+      '<p>Is Primary: <b>' + service.isPrimary + '</b>, ' +
+      'Instance ID: <b>' + service.instanceId + '</b></p></a>';
+    serviceElem.addEventListener('click', function() {
+      currentService = service;
+    });
+    includedServiceList.appendChild(serviceElem);
+  }
+
+  function addCharacteristicToList(char) {
+    console.log('addCharacteristic', char);
+    var charName = findServiceName(char.uuid);
+    var charElem = document.createElement('a');
+    charElem.href = '#/characteristic';
+    charElem.className = 'no-before';
+    charElem.style.justifyContent = 'space-between';
+    charElem.innerHTML = '<div>' +
+      (charName ? '<h3>' + charName + '</h3>' : '') +
+      '<p><b>' + char.uuid + '</b></p>' +
+      '<p>Properties: <b>' + propertiesToString(char.properties) + '</b></p>' +
+      '<p>Value: <b>' + valueToHexString(char.value) + '</b>, ' +
+      'Instance ID: <b>' + char.instanceId + '</b></p></div>';
+    charElem.addEventListener('click', function() {
+      currentCharacteristic = char;
+    });
+    characteristicList.appendChild(charElem);
+  }
+
+  function addDescriptorToList(desc) {
+    console.log('addDescriptor', desc);
+    var descName = findDescriptorName(desc.uuid);
+    var descElem = document.createElement('a');
+    descElem.href = '#/descriptor';
+    descElem.className = 'no-before';
+    descElem.style.justifyContent = 'space-between';
+    descElem.innerHTML = '<div>' +
+      (descName ? '<h3>' + descName + '</h3>' : '') +
+      '<p><b>' + desc.uuid + '</b></p>' +
+      '<p>Permissions: <b>' + permissionsToString(desc.permissions) + '</b></p>' +
+      '<p>Value: <b>' + valueToHexString(desc.value) + '</b></p></div>';
+    descElem.addEventListener('click', function() {
+      currentDescriptor = desc;
+    });
+    descriptorList.appendChild(descElem);
+  }
 
   function startDiscoverDevices() {
     deviceList.innerHTML = '';
@@ -145,7 +317,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Found device', device);
     var deviceElem = document.createElement('a');
     var deviceId = 'device-' + device.address.replace(/:/g, '');
-    deviceElem.setAttribute('style', 'justify-content: space-between;');
+    deviceElem.style.justifyContent = 'space-between';
     deviceElem.innerHTML = '<label for="' + deviceId + '">' +
       '<h3>' + device.name + '</h3>' +
       '<p>Address: <b>' + device.address + '</b></p></label>';
@@ -176,108 +348,116 @@ document.addEventListener('DOMContentLoaded', function() {
     deviceList.appendChild(deviceElem);
   }
 
-  function addANS() {
-    var service = new BluetoothGattService({
-      isPrimary: true,
-      uuid: '00001811-0000-1000-8000-00805f9b34fb'
-    });
-    service.addCharacteristic(
-      '00002a47-0000-1000-8000-00805f9b34fb',
-      {
-        read: true
-      },
-      {
-        read: true, broadcast: false, writeNoResponse: false,
-        write: false, notify: false, indicate: false, signedWrite: false,
-        extendedProps: false
-      },
-      new Uint8Array(0).buffer
-    ).then(function() {
-        return service.addCharacteristic(
-          '00002a46-0000-1000-8000-00805f9b34fb',
-          {
-            notify: true
-          },
-          {
-            read: false, broadcast: false, writeNoResponse: false,
-            write: false, notify: true, indicate: false, signedWrite: false,
-            extendedProps: false
-          },
-          new Uint8Array(0).buffer
-        );
-      }).then(function(c) {
-        return c.addDescriptor(
-          '00002902-0000-1000-8000-00805f9b34fb',
-          {
-            read: true, write: true
-          },
-          new Uint8Array([0x00, 0x00]).buffer
-        );
-      }).then(function() {
-        return service.addCharacteristic('00002a48-0000-1000-8000-00805f9b34fb',
-          {
-            read: true
-          },
-          {
-            read: true, broadcast: false, writeNoResponse: false,
-            write: false, notify: false, indicate: false, signedWrite: false,
-            extendedProps: false
-          },
-          new Uint8Array(0).buffer
-        );
-      }).then(function() {
-        return service.addCharacteristic(
-          '00002a45-0000-1000-8000-00805f9b34fb',
-          {
-            notify: true
-          },
-          {
-            read: false, broadcast: false, writeNoResponse: false,
-            write: false, notify: true, indicate: false, signedWrite: false,
-            extendedProps: false
-          },
-          new Uint8Array(0).buffer
-        );
-      }).then(function(c) {
-        return c.addDescriptor(
-          '00002902-0000-1000-8000-00805f9b34fb',
-          {
-            read: true, write: true
-          },
-          new Uint8Array([0x00, 0x00]).buffer
-        );
-      }).then(function() {
-        return service.addCharacteristic('00002a44-0000-1000-8000-00805f9b34fb',
-          {notify: true},
-          {
-            read: false, broadcast: false, writeNoResponse: false,
-            write: true, notify: false, indicate: false, signedWrite: false,
-            extendedProps: false
-          },
-          new Uint8Array(0).buffer
-        );
-      }).then(function(c) {
-        c.addDescriptor(
-          '00002900-0000-1000-8000-00805f9b34fb',
-          {
-            read: true, write: true
-          },
-          new Uint8Array([0x00, 0x00]).buffer
-        );
-      }).then(function() {
-        console.log('ANS creation all done!');
-        window.ans = service;
-        return server.addService(window.ans);
-      }).then(function(s) {
-        console.log('ANS added!');
-      }).catch(function(e) {
-        console.error(e);
+  function createAns() {
+    return new Promise(function(resolve, reject) {
+      var service = new BluetoothGattService({
+        isPrimary: true,
+        uuid: '00001811-0000-1000-8000-00805f9b34fb'
       });
+
+      service.addCharacteristic(
+        '00002a47-0000-1000-8000-00805f9b34fb',
+        {
+          read: true
+        },
+        {
+          read: true, broadcast: false, writeNoResponse: false,
+          write: false, notify: false, indicate: false, signedWrite: false,
+          extendedProps: false
+        },
+        new Uint8Array(0).buffer
+      ).then(function() {
+          return service.addCharacteristic(
+            '00002a46-0000-1000-8000-00805f9b34fb',
+            {
+              notify: true
+            },
+            {
+              read: false, broadcast: false, writeNoResponse: false,
+              write: false, notify: true, indicate: false, signedWrite: false,
+              extendedProps: false
+            },
+            new Uint8Array(0).buffer
+          );
+        }).then(function(c) {
+          return c.addDescriptor(
+            '00002902-0000-1000-8000-00805f9b34fb',
+            {
+              read: true, write: true
+            },
+            new Uint8Array([0x00, 0x00]).buffer
+          );
+        }).then(function() {
+          return service.addCharacteristic('00002a48-0000-1000-8000-00805f9b34fb',
+            {
+              read: true
+            },
+            {
+              read: true, broadcast: false, writeNoResponse: false,
+              write: false, notify: false, indicate: false, signedWrite: false,
+              extendedProps: false
+            },
+            new Uint8Array(0).buffer
+          );
+        }).then(function() {
+          return service.addCharacteristic(
+            '00002a45-0000-1000-8000-00805f9b34fb',
+            {
+              notify: true
+            },
+            {
+              read: false, broadcast: false, writeNoResponse: false,
+              write: false, notify: true, indicate: false, signedWrite: false,
+              extendedProps: false
+            },
+            new Uint8Array(0).buffer
+          );
+        }).then(function(c) {
+          return c.addDescriptor(
+            '00002902-0000-1000-8000-00805f9b34fb',
+            {
+              read: true, write: true
+            },
+            new Uint8Array([0x00, 0x00]).buffer
+          );
+        }).then(function() {
+          return service.addCharacteristic('00002a44-0000-1000-8000-00805f9b34fb',
+            {notify: true},
+            {
+              read: false, broadcast: false, writeNoResponse: false,
+              write: true, notify: false, indicate: false, signedWrite: false,
+              extendedProps: false
+            },
+            new Uint8Array(0).buffer
+          );
+        }).then(function(c) {
+          c.addDescriptor(
+            '00002900-0000-1000-8000-00805f9b34fb',
+            {
+              read: true, write: true
+            },
+            new Uint8Array([0x00, 0x00]).buffer
+          );
+        }).then(function() {
+          console.log('ANS creation all done!');
+          resolve(service);
+        }).catch(function(e) {
+          reject(e);
+        });
+    });
   }
 
-  function removeANS() {
-    server.removeService(window.ans).then(function() {
-      console.log('ANS removed!');
+  function addService(service) {
+    server.addService(service).then(function() {
+      console.log('Service added!');
+    }).catch(function(e) {
+      console.error(e);
+    });
+  }
+
+  function removeService(service) {
+    server.removeService(service).then(function() {
+      console.log('Service removed!');
     }).catch(function(e) {
       console.error(e);
     });

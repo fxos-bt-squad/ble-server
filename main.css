@@ -1,3 +1,7 @@
+.no-before:before {
+    content: unset !important;
+}
+
 gaia-list > div > a {
     color: var(--text-color) !important;
 }
