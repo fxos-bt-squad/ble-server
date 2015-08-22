@@ -22,6 +22,25 @@ document.addEventListener('DOMContentLoaded', function() {
   var currentService = null;
   var currentCharacteristic = null;
   var currentDescriptor = null;
+  var specMap = {
+    services: {},
+    characteristics: {},
+    descriptors: {}
+  };
+
+  loadJSON('/gatt_specs.json', function(data) {
+    for (var specKey in data) {
+      if (data.hasOwnProperty(specKey)) {
+        for (var spec of data[specKey]) {
+          var sn = spec.number.substr(2).toLowerCase();
+          specMap[specKey][sn] = spec.name;
+        }
+      }
+    }
+    console.log(specMap);
+  }, function(err) {
+    console.error(err);
+  });
 
   if (defaultAdapter) {
     console.log('defaultAdapter get!');
@@ -50,9 +69,23 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   };
 
+  function createService(json) {
+    //TODO: create service
+    return null;
+  }
+
   function init() {
     initialized = true;
 
+    loadJSON('/preload_services.js', function(response) {
+      for (var serviceJson of response) {
+        var service = createService(serviceJson);
+        if (service) {
+          services.push(service);
+          addServiceToList(service);
+        }
+      }
+    });
     createAns().then(function(service) {
       services.push(service);
       addServiceToList(service);
@@ -164,25 +197,47 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function findServiceName(uuid) {
-    if (uuid == '00001811-0000-1000-8000-00805f9b34fb') {
-      return 'Alert Notification Service';
+    var num = uuid.substr(4, 4);
+    var name = specMap.services[num];
+    if (name) {
+      return name;
     }
-    return null;
+    return '';
   }
 
   function findCharacteristicName(uuid) {
-    return null;
+    var num = uuid.substr(4, 4);
+    var name = specMap.characteristics[num];
+    if (name) {
+      return name;
+    }
+    return '';
   }
 
   function findDescriptorName(uuid) {
-    return null;
+    var num = uuid.substr(4, 4);
+    var name = specMap.descriptors[num];
+    if (name) {
+      return name;
+    }
+    return '';
   }
 
   function permissionsToString(permissions) {
+    if (permissions) {
+      return Array.join(Array.filter(Object.keys(permissions), function(k) {
+        return permissions[k];
+      }), ', ');
+    }
     return '';
   }
 
   function propertiesToString(properties) {
+    if (properties) {
+      return Array.join(Array.filter(Object.keys(properties), function(k) {
+        return properties[k];
+      }), ', ');
+    }
     return '';
   }
 
@@ -200,8 +255,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     return str;
   }
+
   function addServiceToList(service) {
-    console.log('addService', service);
     var serviceName = findServiceName(service.uuid);
     var serviceElem = document.createElement('div');
     serviceElem.className = 'no-before';
@@ -227,7 +282,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function addIncludedServiceToList(service) {
-    console.log('addIncludedService', service);
     var serviceName = findServiceName(service.uuid);
     var serviceElem = document.createElement('div');
     serviceElem.className = 'no-before';
@@ -244,8 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function addCharacteristicToList(char) {
-    console.log('addCharacteristic', char);
-    var charName = findServiceName(char.uuid);
+    var charName = findCharacteristicName(char.uuid);
     var charElem = document.createElement('a');
     charElem.href = '#/characteristic';
     charElem.className = 'no-before';
@@ -263,7 +316,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function addDescriptorToList(desc) {
-    console.log('addDescriptor', desc);
     var descName = findDescriptorName(desc.uuid);
     var descElem = document.createElement('a');
     descElem.href = '#/descriptor';
@@ -463,4 +515,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  function loadJSON(url, successHandler, errorHandler) {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+      successHandler && successHandler(xhr.response);
+    };
+    xhr.onerror = function() {
+      errorHandler && errorHandler(xhr.statusText);
+    };
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
+    xhr.send();
+  }
 }); //DOMContentLoaded
