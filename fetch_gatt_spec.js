@@ -16,45 +16,42 @@ var spec_pages = {
 var spec_count = Object.keys(specs).length;
 var spec_file = 'gatt_specs.json';
 
-var resolve_count = 0;
+function fetch_spec(page, url) {
+  return new Promise(function(resolve) {
+    request({uri: url}, function(err, response, body) {
+      //Just a basic error check
+      if (err && response.statusCode !== 200) {
+        console.error('Request error', err);
+        return;
+      }
 
-function fetch_spec(page, url, callback) {
-  request({uri: url}, function(err, response, body) {
-    //Just a basic error check
-    if (err && response.statusCode !== 200) {
-      console.error('Request error', err);
-      return;
-    }
+      $ = cheerio.load(body);
 
-    $ = cheerio.load(body);
-
-    $('#onetidDoclibViewTbl0 > tr').each(function(rowIdx, row) {
-      var spec = {};
-      $(row).children().each(function(colIdx, col) {
-        spec[spec_header[colIdx]] = $(col).text();
+      $('#onetidDoclibViewTbl0 > tr').each(function(rowIdx, row) {
+        var spec = {};
+        $(row).children().each(function(colIdx, col) {
+          spec[spec_header[colIdx]] = $(col).text();
+        });
+        specs[page].push(spec);
       });
-      specs[page].push(spec);
+      resolve();
     });
-    if (callback) {
-      callback();
-    }
   });
 }
 
-function saveSpecsWhenReady() {
-  resolve_count++;
-  if (resolve_count == spec_count) {
-    fs.writeFile(spec_file, JSON.stringify(specs, null, 2), function(err) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("Spec file saved to " + spec_file);
-      }
-    });
-  }
-}
+var fetchPromisies = [];
 
 for (var page in spec_pages) {
-  fetch_spec(page, spec_pages[page], saveSpecsWhenReady);
+  fetchPromisies.push(fetch_spec(page, spec_pages[page]));
 }
+
+Promise.all(fetchPromisies).then(function() {
+  fs.writeFile(spec_file, JSON.stringify(specs, null, 2), function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Spec file saved to " + spec_file);
+    }
+  });
+});
 
