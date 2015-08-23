@@ -1,7 +1,7 @@
 [
   {
     "uuid": "00001811-0000-1000-8000-00805f9b34fb",
-    "isPrimary": "",
+    "isPrimary": true,
     "characteristics": [
       {
         "uuid": "00002a47-0000-1000-8000-00805f9b34fb",
@@ -56,6 +56,7 @@
           }
         ]
       }
-    ]
+    ],
+    "includedServices": []
   }
 ]

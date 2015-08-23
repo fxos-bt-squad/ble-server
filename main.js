@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
     }
-    console.log(specMap);
   }, function(err) {
     console.error(err);
   });
@@ -68,28 +67,90 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   };
+  var DEFAULT_PROPERTIES = {
+    read: false, broadcast: false, writeNoResponse: false,
+    write: false, notify: false, indicate: false, signedWrite: false,
+    extendedProps: false
+  };
+
+  function arrayToFlags(array, defaultFlags) {
+    var flags = {};
+    if (defaultFlags) {
+      flags = defaultFlags;
+    }
+    for (var elem of array) {
+      flags[elem] = true;
+    }
+    return flags;
+  }
+
+  function parseHexString(str) {
+    var arrayBuffer = new ArrayBuffer(Math.ceil(str.length / 2));
+    var uint8Array = new Uint8Array(arrayBuffer);
+
+    for (var i = 0, j = 0; i < str.length; i += 2, j++) {
+      uint8Array[j] = parseInt(str.substr(i, 2), 16);
+    }
+    return arrayBuffer;
+  }
+
+  function valueToBuffer(value) {
+    if (typeof(value) == 'string') {
+      return parseHexString(value);
+    } else if (value instanceof Array) {
+      return new Uint8Array(value).buffer;
+    }
+    return new ArrayBuffer(0);
+  }
 
   function createService(json) {
-    //TODO: create service
-    return null;
+    var promises = [];
+    var service = new BluetoothGattService({
+      uuid: json.uuid,
+      isPrimary: json.isPrimary
+    });
+    promises.push(service);
+    json.characteristics.forEach(function(char) {
+      promises.push(service.addCharacteristic(
+        char.uuid,
+        arrayToFlags(char.permissions),
+        arrayToFlags(char.properties, DEFAULT_PROPERTIES),
+        valueToBuffer(char.value)
+      ).then(function(characteristic) {
+          char.descriptors.forEach(function(desc) {
+            console.log(desc);
+            promises.push(characteristic.addDescriptor(
+              desc.uuid,
+              arrayToFlags(desc.permissions),
+              valueToBuffer(desc.value)
+            ));
+          });
+        }
+      ));
+    });
+    json.includedServices.forEach(function(incService) {
+      promises.push(createService(incService));
+    });
+    return Promise.all(promises);
   }
 
   function init() {
     initialized = true;
 
-    loadJSON('/preload_services.js', function(response) {
+    loadJSON('/preload_services.json', function(response) {
       for (var serviceJson of response) {
-        var service = createService(serviceJson);
-        if (service) {
-          services.push(service);
-          addServiceToList(service);
-        }
+        createService(serviceJson).then(function(values) {
+          if (values && values.length > 0) {
+            var service = values[0];
+            if (service) {
+              services.push(service);
+              addServiceToList(service);
+            }
+          }
+        });
       }
     });
-    createAns().then(function(service) {
-      services.push(service);
-      addServiceToList(service);
-    });
+
     defaultAdapter.onattributechanged = function(evt) {
       console.log('--> _onAdapterAttributeChanged.... ');
       evt.attrs.forEach(function(evtAttr) {
@@ -398,105 +459,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     deviceElem.appendChild(connectSwitch);
     deviceList.appendChild(deviceElem);
-  }
-
-  function createAns() {
-    return new Promise(function(resolve, reject) {
-      var service = new BluetoothGattService({
-        isPrimary: true,
-        uuid: '00001811-0000-1000-8000-00805f9b34fb'
-      });
-
-      service.addCharacteristic(
-        '00002a47-0000-1000-8000-00805f9b34fb',
-        {
-          read: true
-        },
-        {
-          read: true, broadcast: false, writeNoResponse: false,
-          write: false, notify: false, indicate: false, signedWrite: false,
-          extendedProps: false
-        },
-        new Uint8Array(0).buffer
-      ).then(function() {
-          return service.addCharacteristic(
-            '00002a46-0000-1000-8000-00805f9b34fb',
-            {
-              notify: true
-            },
-            {
-              read: false, broadcast: false, writeNoResponse: false,
-              write: false, notify: true, indicate: false, signedWrite: false,
-              extendedProps: false
-            },
-            new Uint8Array(0).buffer
-          );
-        }).then(function(c) {
-          return c.addDescriptor(
-            '00002902-0000-1000-8000-00805f9b34fb',
-            {
-              read: true, write: true
-            },
-            new Uint8Array([0x00, 0x00]).buffer
-          );
-        }).then(function() {
-          return service.addCharacteristic('00002a48-0000-1000-8000-00805f9b34fb',
-            {
-              read: true
-            },
-            {
-              read: true, broadcast: false, writeNoResponse: false,
-              write: false, notify: false, indicate: false, signedWrite: false,
-              extendedProps: false
-            },
-            new Uint8Array(0).buffer
-          );
-        }).then(function() {
-          return service.addCharacteristic(
-            '00002a45-0000-1000-8000-00805f9b34fb',
-            {
-              notify: true
-            },
-            {
-              read: false, broadcast: false, writeNoResponse: false,
-              write: false, notify: true, indicate: false, signedWrite: false,
-              extendedProps: false
-            },
-            new Uint8Array(0).buffer
-          );
-        }).then(function(c) {
-          return c.addDescriptor(
-            '00002902-0000-1000-8000-00805f9b34fb',
-            {
-              read: true, write: true
-            },
-            new Uint8Array([0x00, 0x00]).buffer
-          );
-        }).then(function() {
-          return service.addCharacteristic('00002a44-0000-1000-8000-00805f9b34fb',
-            {notify: true},
-            {
-              read: false, broadcast: false, writeNoResponse: false,
-              write: true, notify: false, indicate: false, signedWrite: false,
-              extendedProps: false
-            },
-            new Uint8Array(0).buffer
-          );
-        }).then(function(c) {
-          c.addDescriptor(
-            '00002900-0000-1000-8000-00805f9b34fb',
-            {
-              read: true, write: true
-            },
-            new Uint8Array([0x00, 0x00]).buffer
-          );
-        }).then(function() {
-          console.log('ANS creation all done!');
-          resolve(service);
-        }).catch(function(e) {
-          reject(e);
-        });
-    });
   }
 
   function addService(service) {
