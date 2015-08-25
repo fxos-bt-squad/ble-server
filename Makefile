@@ -1,2 +1,2 @@
 package:
-	zip package.zip index.html manifest.webapp main.js main.css -r bower_components -r img
+	zip package.zip index.html manifest.webapp -r js -r css -r res -r bower_components -r img

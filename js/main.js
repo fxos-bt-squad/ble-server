@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     descriptors: {}
   };
 
-  loadJSON('/gatt_specs.json', function(data) {
+  loadJSON('/res/gatt_specs.json', function(data) {
     for (var specKey in data) {
       if (data.hasOwnProperty(specKey)) {
         for (var spec of data[specKey]) {
@@ -137,8 +137,8 @@ document.addEventListener('DOMContentLoaded', function() {
   function init() {
     initialized = true;
 
-    loadJSON('/preload_services.json', function(response) {
-      for (var serviceJson of response) {
+    loadJSON('/res/preload_services.json', function(response) {
+      response.forEach(function(serviceJson) {
         createService(serviceJson).then(function(values) {
           if (values && values.length > 0) {
             var service = values[0];
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           }
         });
-      }
+      });
     });
 
     defaultAdapter.onattributechanged = function(evt) {
@@ -242,8 +242,10 @@ document.addEventListener('DOMContentLoaded', function() {
     charUuid.textContent = currentCharacteristic.uuid;
     charInstanceId.textContent = currentCharacteristic.instanceId;
     charValue.textContent = valueToHexString(currentCharacteristic.value);
-    charPermissions.textContent = permissionsToString(currentCharacteristic.permissions);
-    charProperties.textContent = propertiesToString(currentCharacteristic.properties);
+    charPermissions.textContent =
+      permissionsToString(currentCharacteristic.permissions);
+    charProperties.textContent =
+      propertiesToString(currentCharacteristic.properties);
     descriptorList.innerHTML = '';
     for (var desc of currentCharacteristic.descriptors) {
       addDescriptorToList(desc);
@@ -253,7 +255,8 @@ document.addEventListener('DOMContentLoaded', function() {
   function updateDescriptorState() {
     descUuid.textContent = currentDescriptor.uuid;
     descValue.textContent = valueToHexString(currentDescriptor.value);
-    descPermissions.textContent = permissionsToString(currentDescriptor.permissions);
+    descPermissions.textContent =
+      permissionsToString(currentDescriptor.permissions);
 
   }
 
@@ -309,7 +312,7 @@ document.addEventListener('DOMContentLoaded', function() {
       for (var i = 0; i < uint8Array.length; i++) {
         var b = uint8Array[i].toString(16);
         if (b.length == 1) {
-          str += '0'
+          str += '0';
         }
         str += b;
       }
@@ -385,7 +388,8 @@ document.addEventListener('DOMContentLoaded', function() {
     descElem.innerHTML = '<div>' +
       (descName ? '<h3>' + descName + '</h3>' : '') +
       '<p><b>' + desc.uuid + '</b></p>' +
-      '<p>Permissions: <b>' + permissionsToString(desc.permissions) + '</b></p>' +
+      '<p>Permissions: <b>' +
+      permissionsToString(desc.permissions) + '</b></p>' +
       '<p>Value: <b>' + valueToHexString(desc.value) + '</b></p></div>';
     descElem.addEventListener('click', function() {
       currentDescriptor = desc;
@@ -400,7 +404,8 @@ document.addEventListener('DOMContentLoaded', function() {
       console.info('Scan started');
       discoveryHandler = handle;
       discoveryHandler.ondevicefound = function onDeviceFound(evt) {
-        if (evt.device.gatt && foundDeviceAddrs.indexOf(evt.device.address) < 0) {
+        if (evt.device.gatt &&
+          foundDeviceAddrs.indexOf(evt.device.address) < 0) {
           addDeviceToList(evt.device);
           foundDeviceAddrs.push(evt.device.address);
         }
