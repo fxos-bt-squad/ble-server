@@ -136,14 +136,14 @@
         <a>
           <div class="custom-response">
             <h3>Custom Response <gaia-switch id="resp-switch" class="divided"></gaia-switch></h3>
-            <p>Status: <gaia-text-input placeholder="Status code"></gaia-text-input></p>
-            <p>Value: <gaia-text-input placeholder="Response value"></gaia-text-input></p>
-            <p><gaia-button class="send-response">Send Response</gaia-button></p>
+            <p>Status: <gaia-text-input id="send-char-status" placeholder="Status code"></gaia-text-input></p>
+            <p>Value: <gaia-text-input id="send-char-value" placeholder="Response value"></gaia-text-input></p>
+            <p><gaia-button id="send-char-response" class="send-response">Send Response</gaia-button></p>
             <p>
-              <gaia-button>Notify Change</gaia-button>
+              <gaia-button id="notify-change-button">Notify Change</gaia-button>
               <span class="label-switch">
                 confirm
-                <gaia-switch class="divided"></gaia-switch>
+                <gaia-switch id="notify-confirm-switch" class="divided"></gaia-switch>
               </span>
             </p>
           </div>
@@ -182,20 +182,14 @@
         <a>
           <div class="custom-response">
             <h3>Custom Response <gaia-switch id="resp-switch" class="divided"></gaia-switch></h3>
-            <p>Status: <gaia-text-input placeholder="Status code"></gaia-text-input></p>
-            <p>Value: <gaia-text-input placeholder="Response value"></gaia-text-input></p>
-            <p><gaia-button class="send-response">Send Response</gaia-button></p>
-            <p>
-              <gaia-button>Notify Change</gaia-button>
-              <span class="label-switch">
-                confirm
-                <gaia-switch></gaia-switch>
-              </span>
-            </p>
+            <p>Status: <gaia-text-input id="send-desc-status" placeholder="Status code"></gaia-text-input></p>
+            <p>Value: <gaia-text-input id="send-desc-value" placeholder="Response value"></gaia-text-input></p>
+            <p><gaia-button id="send-desc-response" class="send-response">Send Response</gaia-button></p>
           </div>
         </a>
       </gaia-list>
     </section>
   </gaia-pages>
+  <gaia-toast id="toast" timeout="2000"></gaia-toast>
 </body>
 </html>

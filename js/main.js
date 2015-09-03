@@ -19,6 +19,15 @@ document.addEventListener('DOMContentLoaded', function() {
   var characteristicList = document.getElementById('characteristic-list');
   var descriptorList = document.getElementById('descriptor-list');
   var connectionButtons = document.querySelectorAll('.disconnected');
+  var notifyChangeButton = document.getElementById('notify-change-button');
+  var notifyConfirmSwitch = document.getElementById('notify-confirm-switch');
+  var sendCharResponseButton = document.getElementById('send-char-response');
+  var sendCharStatus = document.getElementById('send-char-status');
+  var sendCharVal = document.getElementById('send-char-value');
+  var sendDescResponseButton = document.getElementById('send-desc-response');
+  var sendDescStatus = document.getElementById('send-desc-status');
+  var sendDescVal = document.getElementById('send-desc-value');
+  var toast = document.getElementById('toast');
   var currentService = null;
   var currentCharacteristic = null;
   var currentDescriptor = null;
@@ -27,6 +36,13 @@ document.addEventListener('DOMContentLoaded', function() {
     characteristics: {},
     descriptors: {}
   };
+  var connectedAddrs = [];
+
+  function showToast(msg) {
+    toast.hide();
+    toast.textContent = msg;
+    toast.show();
+  }
 
   loadJSON('/res/gatt_specs.json', function(data) {
     for (var specKey in data) {
@@ -178,6 +194,87 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
     };
+
+    server.onconnectionstatechanged = function(e) {
+      console.log(e.address + ' connection state: ', e.status);
+    };
+
+    server.onattributereadreq = function(e) {
+      if (e.characteristic) {
+        console.log('read characteristic req', e.characteristic);
+      }
+      if (e.descriptor) {
+        console.log('read descriptor req', e.descriptor);
+      }
+      if (e.needRsp) {
+        server.sendResponse(e.address, 0, e.requestId).then(function() {
+          console.log('Success sent response to '+e.address, e.requestId);
+        }).catch(function(err) {
+          console.log('Error sent response to '+e.address, e.requestId, err);
+        });
+      }
+    };
+
+    server.onattributewritereq = function(e) {
+      if (e.characteristic) {
+        console.log('write characteristic req', e.characteristic, e.value);
+        e.characteristic.writeValue(e.value);
+        showToast(valueToHexString(e.value) + ' written to characteristic ' +
+          e.characteristic.uuid);
+      }
+      if (e.descriptor) {
+        console.log('write descriptor req', e.descriptor, e.value);
+        e.descriptor.writeValue(e.value);
+        showToast(valueToHexString(e.value) + ' written to descriptor ' +
+          e.descriptor.uuid);
+      }
+      if (e.needRsp) {
+        server.sendResponse(e.address, 0, e.requestId).then(function() {
+          console.log('Success sent response to '+e.address, e.requestId);
+        }).catch(function(err) {
+          console.log('Error sent response to '+e.address, e.requestId, err);
+        });
+      }
+    };
+
+    notifyChangeButton.addEventListener('click', function() {
+      for (var addr of connectedAddrs) {
+        server.notifyCharacteristicChanged(addr, currentCharacteristic,
+          notifyConfirmSwitch.checked).then(function() {
+            console.log('Success notify ' + addr + ' of characteristic change',
+              currentCharacteristic);
+          }).catch(function(e) {
+            console.error('Error when notify ' + addr,
+              currentCharacteristic, e);
+          });
+      }
+    });
+
+    sendCharResponseButton.addEventListener('click', function() {
+      var fakeReqId = parseInt(window.prompt('Enter fake request ID'));
+      for (var addr of connectedAddrs) {
+        server.sendResponse(addr, sendCharStatus.value, fakeReqId).then(function() {
+          console.log('Success sent fake response to ' + addr,
+            sendCharStatus.value, fakeReqId)
+        }).catch(function(err) {
+          console.error('Error when sent fake response to ' + addr,
+            sendCharStatus.value, fakeReqId, err);
+        });
+      }
+    });
+
+    sendDescResponseButton.addEventListener('click', function() {
+      var fakeReqId = parseInt(window.prompt('Enter fake request ID'));
+      for (var addr of connectedAddrs) {
+        server.sendResponse(addr, sendDescStatus.value, fakeReqId).then(function() {
+          console.log('Success sent fake response to ' + addr,
+            sendDescStatus.value, fakeReqId)
+        }).catch(function(err) {
+          console.error('Error when sent fake response to ' + addr,
+            sendDescStatus.value, fakeReqId, err);
+        });
+      }
+    });
 
     var els = document.querySelectorAll('gaia-header');
     [].forEach.call(els, function(el) {
@@ -445,6 +542,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (this.checked) {
         device.gatt.connect().then(function() {
           console.log('Device connected');
+          connectedAddrs.push(device.address);
           connectionCount++;
           updateConnectionState(true);
         }).catch(function(e) {
@@ -453,6 +551,7 @@ document.addEventListener('DOMContentLoaded', function() {
       } else {
         device.gatt.disconnect().then(function() {
           console.log('Device disconnected');
+          connectedAddrs.splice(connectedAddrs.indexOf(device.address), 1);
           connectionCount--;
           if (connectionCount <= 0) {
             updateConnectionState(false);
