@@ -10,7 +10,7 @@ And install app using [WebIDE]
 # Development
 Install [npm] dev dependencies like [gulp]
 ```
-npm install --dev
+npm install
 ```
 Use gulp to perform lint check
 ```
