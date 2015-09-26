@@ -1,0 +1,1250 @@
+{
+  "services": [
+    {
+      "name": "Alert Notification Service",
+      "type": "org.bluetooth.service.alert_notification",
+      "number": "0x1811",
+      "level": "Adopted"
+    },
+    {
+      "name": "Automation IO",
+      "type": "org.bluetooth.service.automation_io",
+      "number": "0x1815",
+      "level": "Adopted"
+    },
+    {
+      "name": "Battery Service",
+      "type": "org.bluetooth.service.battery_service",
+      "number": "0x180F",
+      "level": "Adopted"
+    },
+    {
+      "name": "Blood Pressure",
+      "type": "org.bluetooth.service.blood_pressure",
+      "number": "0x1810",
+      "level": "Adopted"
+    },
+    {
+      "name": "Body Composition",
+      "type": "org.bluetooth.service.body_composition",
+      "number": "0x181B",
+      "level": "Adopted"
+    },
+    {
+      "name": "Bond Management",
+      "type": "org.bluetooth.service.bond_management",
+      "number": "0x181E",
+      "level": "Adopted"
+    },
+    {
+      "name": "Continuous Glucose Monitoring",
+      "type": "org.bluetooth.service.continuous_glucose_monitoring",
+      "number": "0x181F",
+      "level": "Adopted"
+    },
+    {
+      "name": "Current Time Service",
+      "type": "org.bluetooth.service.current_time",
+      "number": "0x1805",
+      "level": "Adopted"
+    },
+    {
+      "name": "Cycling Power",
+      "type": "org.bluetooth.service.cycling_power",
+      "number": "0x1818",
+      "level": "Adopted"
+    },
+    {
+      "name": "Cycling Speed and Cadence",
+      "type": "org.bluetooth.service.cycling_speed_and_cadence",
+      "number": "0x1816",
+      "level": "Adopted"
+    },
+    {
+      "name": "Device Information",
+      "type": "org.bluetooth.service.device_information",
+      "number": "0x180A",
+      "level": "Adopted"
+    },
+    {
+      "name": "Environmental Sensing",
+      "type": "org.bluetooth.service.environmental_sensing",
+      "number": "0x181A",
+      "level": "Adopted"
+    },
+    {
+      "name": "Generic Access",
+      "type": "org.bluetooth.service.generic_access",
+      "number": "0x1800",
+      "level": "Adopted"
+    },
+    {
+      "name": "Generic Attribute",
+      "type": "org.bluetooth.service.generic_attribute",
+      "number": "0x1801",
+      "level": "Adopted"
+    },
+    {
+      "name": "Glucose",
+      "type": "org.bluetooth.service.glucose",
+      "number": "0x1808",
+      "level": "Adopted"
+    },
+    {
+      "name": "Health Thermometer",
+      "type": "org.bluetooth.service.health_thermometer",
+      "number": "0x1809",
+      "level": "Adopted"
+    },
+    {
+      "name": "Heart Rate",
+      "type": "org.bluetooth.service.heart_rate",
+      "number": "0x180D",
+      "level": "Adopted"
+    },
+    {
+      "name": "Human Interface Device",
+      "type": "org.bluetooth.service.human_interface_device",
+      "number": "0x1812",
+      "level": "Adopted"
+    },
+    {
+      "name": "Immediate Alert",
+      "type": "org.bluetooth.service.immediate_alert",
+      "number": "0x1802",
+      "level": "Adopted"
+    },
+    {
+      "name": "Indoor Positioning",
+      "type": "org.bluetooth.service.indoor_positioning",
+      "number": "0x1821",
+      "level": "Adopted"
+    },
+    {
+      "name": "Internet Protocol Support",
+      "type": "org.bluetooth.service.internet_protocol_support",
+      "number": "0x1820",
+      "level": "Adopted"
+    },
+    {
+      "name": "Link Loss",
+      "type": "org.bluetooth.service.link_loss",
+      "number": "0x1803",
+      "level": "Adopted"
+    },
+    {
+      "name": "Location and Navigation",
+      "type": "org.bluetooth.service.location_and_navigation",
+      "number": "0x1819",
+      "level": "Adopted"
+    },
+    {
+      "name": "Next DST Change Service",
+      "type": "org.bluetooth.service.next_dst_change",
+      "number": "0x1807",
+      "level": "Adopted"
+    },
+    {
+      "name": "Phone Alert Status Service",
+      "type": "org.bluetooth.service.phone_alert_status",
+      "number": "0x180E",
+      "level": "Adopted"
+    },
+    {
+      "name": "Pulse Oximeter",
+      "type": "org.bluetooth.service.pulse_oximeter",
+      "number": "0x1822",
+      "level": "Adopted"
+    },
+    {
+      "name": "Reference Time Update Service",
+      "type": "org.bluetooth.service.reference_time_update",
+      "number": "0x1806",
+      "level": "Adopted"
+    },
+    {
+      "name": "Running Speed and Cadence",
+      "type": "org.bluetooth.service.running_speed_and_cadence",
+      "number": "0x1814",
+      "level": "Adopted"
+    },
+    {
+      "name": "Scan Parameters",
+      "type": "org.bluetooth.service.scan_parameters",
+      "number": "0x1813",
+      "level": "Adopted"
+    },
+    {
+      "name": "Tx Power",
+      "type": "org.bluetooth.service.tx_power",
+      "number": "0x1804",
+      "level": "Adopted"
+    },
+    {
+      "name": "User Data",
+      "type": "org.bluetooth.service.user_data",
+      "number": "0x181C",
+      "level": "Adopted"
+    },
+    {
+      "name": "Weight Scale",
+      "type": "org.bluetooth.service.weight_scale",
+      "number": "0x181D",
+      "level": "Adopted"
+    }
+  ],
+  "characteristics": [
+    {
+      "name": "Aerobic Heart Rate Lower Limit",
+      "type": "org.bluetooth.characteristic.aerobic_heart_rate_lower_limit",
+      "number": "0x2A7E",
+      "level": "Adopted"
+    },
+    {
+      "name": "Aerobic Heart Rate Upper Limit",
+      "type": "org.bluetooth.characteristic.aerobic_heart_rate_upper_limit",
+      "number": "0x2A84",
+      "level": "Adopted"
+    },
+    {
+      "name": "Aerobic Threshold",
+      "type": "org.bluetooth.characteristic.aerobic_threshold",
+      "number": "0x2A7F",
+      "level": "Adopted"
+    },
+    {
+      "name": "Age",
+      "type": "org.bluetooth.characteristic.age",
+      "number": "0x2A80",
+      "level": "Adopted"
+    },
+    {
+      "name": "Aggregate",
+      "type": "org.bluetooth.characteristic.aggregate",
+      "number": "0x2A5A",
+      "level": "Adopted"
+    },
+    {
+      "name": "Alert Category ID",
+      "type": "org.bluetooth.characteristic.alert_category_id",
+      "number": "0x2A43",
+      "level": "Adopted"
+    },
+    {
+      "name": "Alert Category ID Bit Mask",
+      "type": "org.bluetooth.characteristic.alert_category_id_bit_mask",
+      "number": "0x2A42",
+      "level": "Adopted"
+    },
+    {
+      "name": "Alert Level",
+      "type": "org.bluetooth.characteristic.alert_level",
+      "number": "0x2A06",
+      "level": "Adopted"
+    },
+    {
+      "name": "Alert Notification Control Point",
+      "type": "org.bluetooth.characteristic.alert_notification_control_point",
+      "number": "0x2A44",
+      "level": "Adopted"
+    },
+    {
+      "name": "Alert Status",
+      "type": "org.bluetooth.characteristic.alert_status",
+      "number": "0x2A3F",
+      "level": "Adopted"
+    },
+    {
+      "name": "Altitude",
+      "type": "org.bluetooth.characteristic.altitude",
+      "number": "0x2AB3",
+      "level": "Adopted"
+    },
+    {
+      "name": "Anaerobic Heart Rate Lower Limit",
+      "type": "org.bluetooth.characteristic.anaerobic_heart_rate_lower_limit",
+      "number": "0x2A81",
+      "level": "Adopted"
+    },
+    {
+      "name": "Anaerobic Heart Rate Upper Limit",
+      "type": "org.bluetooth.characteristic.anaerobic_heart_rate_upper_limit",
+      "number": "0x2A82",
+      "level": "Adopted"
+    },
+    {
+      "name": "Anaerobic Threshold",
+      "type": "org.bluetooth.characteristic.anaerobic_threshold",
+      "number": "0x2A83",
+      "level": "Adopted"
+    },
+    {
+      "name": "Analog",
+      "type": "org.bluetooth.characteristic.analog",
+      "number": "0x2A58",
+      "level": "Adopted"
+    },
+    {
+      "name": "Apparent Wind Direction ",
+      "type": "org.bluetooth.characteristic.apparent_wind_direction",
+      "number": "0x2A73",
+      "level": "Adopted"
+    },
+    {
+      "name": "Apparent Wind Speed",
+      "type": "org.bluetooth.characteristic.apparent_wind_speed",
+      "number": "0x2A72",
+      "level": "Adopted"
+    },
+    {
+      "name": "Appearance",
+      "type": "org.bluetooth.characteristic.gap.appearance",
+      "number": "0x2A01",
+      "level": "Adopted"
+    },
+    {
+      "name": "Barometric Pressure Trend",
+      "type": "org.bluetooth.characteristic.barometric_pressure_trend",
+      "number": "0x2AA3",
+      "level": "Adopted"
+    },
+    {
+      "name": "Battery Level",
+      "type": "org.bluetooth.characteristic.battery_level",
+      "number": "0x2A19",
+      "level": "Adopted"
+    },
+    {
+      "name": "Blood Pressure Feature",
+      "type": "org.bluetooth.characteristic.blood_pressure_feature",
+      "number": "0x2A49",
+      "level": "Adopted"
+    },
+    {
+      "name": "Blood Pressure Measurement",
+      "type": "org.bluetooth.characteristic.blood_pressure_measurement",
+      "number": "0x2A35",
+      "level": "Adopted"
+    },
+    {
+      "name": "Body Composition Feature",
+      "type": "org.bluetooth.characteristic.body_composition_feature",
+      "number": "0x2A9B",
+      "level": "Adopted"
+    },
+    {
+      "name": "Body Composition Measurement",
+      "type": "org.bluetooth.characteristic.body_composition_measurement",
+      "number": "0x2A9C",
+      "level": "Adopted"
+    },
+    {
+      "name": "Body Sensor Location",
+      "type": "org.bluetooth.characteristic.body_sensor_location",
+      "number": "0x2A38",
+      "level": "Adopted"
+    },
+    {
+      "name": "Bond Management Control Point",
+      "type": "org.bluetooth.characteristic.bond_management_control_point",
+      "number": "0x2AA4",
+      "level": "Adopted"
+    },
+    {
+      "name": "Bond Management Feature",
+      "type": "org.bluetooth.characteristic.bond_management_feature",
+      "number": "0x2AA5",
+      "level": "Adopted"
+    },
+    {
+      "name": "Boot Keyboard Input Report",
+      "type": "org.bluetooth.characteristic.boot_keyboard_input_report",
+      "number": "0x2A22",
+      "level": "Adopted"
+    },
+    {
+      "name": "Boot Keyboard Output Report",
+      "type": "org.bluetooth.characteristic.boot_keyboard_output_report",
+      "number": "0x2A32",
+      "level": "Adopted"
+    },
+    {
+      "name": "Boot Mouse Input Report",
+      "type": "org.bluetooth.characteristic.boot_mouse_input_report",
+      "number": "0x2A33",
+      "level": "Adopted"
+    },
+    {
+      "name": "Central Address Resolution",
+      "type": "org.bluetooth.characteristic.gap.central_address_resolution_support",
+      "number": "0x2AA6",
+      "level": "Adopted"
+    },
+    {
+      "name": "CGM Feature",
+      "type": "org.bluetooth.characteristic.cgm_feature",
+      "number": "0x2AA8",
+      "level": "Adopted"
+    },
+    {
+      "name": "CGM Measurement",
+      "type": "org.bluetooth.characteristic.cgm_measurement",
+      "number": "0x2AA7",
+      "level": "Adopted"
+    },
+    {
+      "name": "CGM Session Run Time",
+      "type": "org.bluetooth.characteristic.cgm_session_run_time",
+      "number": "0x2AAB",
+      "level": "Adopted"
+    },
+    {
+      "name": "CGM Session Start Time",
+      "type": "org.bluetooth.characteristic.cgm_session_start_time",
+      "number": "0x2AAA",
+      "level": "Adopted"
+    },
+    {
+      "name": "CGM Specific Ops Control Point",
+      "type": "org.bluetooth.characteristic.cgm_specific_ops_control_point",
+      "number": "0x2AAC",
+      "level": "Adopted"
+    },
+    {
+      "name": "CGM Status",
+      "type": "org.bluetooth.characteristic.cgm_status",
+      "number": "0x2AA9",
+      "level": "Adopted"
+    },
+    {
+      "name": "CSC Feature",
+      "type": "org.bluetooth.characteristic.csc_feature",
+      "number": "0x2A5C",
+      "level": "Adopted"
+    },
+    {
+      "name": "CSC Measurement",
+      "type": "org.bluetooth.characteristic.csc_measurement",
+      "number": "0x2A5B",
+      "level": "Adopted"
+    },
+    {
+      "name": "Current Time",
+      "type": "org.bluetooth.characteristic.current_time",
+      "number": "0x2A2B",
+      "level": "Adopted"
+    },
+    {
+      "name": "Cycling Power Control Point",
+      "type": "org.bluetooth.characteristic.cycling_power_control_point",
+      "number": "0x2A66",
+      "level": "Adopted"
+    },
+    {
+      "name": "Cycling Power Feature",
+      "type": "org.bluetooth.characteristic.cycling_power_feature",
+      "number": "0x2A65",
+      "level": "Adopted"
+    },
+    {
+      "name": "Cycling Power Measurement",
+      "type": "org.bluetooth.characteristic.cycling_power_measurement",
+      "number": "0x2A63",
+      "level": "Adopted"
+    },
+    {
+      "name": "Cycling Power Vector",
+      "type": "org.bluetooth.characteristic.cycling_power_vector",
+      "number": "0x2A64",
+      "level": "Adopted"
+    },
+    {
+      "name": "Database Change Increment",
+      "type": "org.bluetooth.characteristic.database_change_increment",
+      "number": "0x2A99",
+      "level": "Adopted"
+    },
+    {
+      "name": "Date of Birth",
+      "type": "org.bluetooth.characteristic.date_of_birth",
+      "number": "0x2A85",
+      "level": "Adopted"
+    },
+    {
+      "name": "Date of Threshold Assessment ",
+      "type": "org.bluetooth.characteristic.date_of_threshold_assessment",
+      "number": "0x2A86",
+      "level": "Adopted"
+    },
+    {
+      "name": "Date Time",
+      "type": "org.bluetooth.characteristic.date_time",
+      "number": "0x2A08",
+      "level": "Adopted"
+    },
+    {
+      "name": "Day Date Time",
+      "type": "org.bluetooth.characteristic.day_date_time",
+      "number": "0x2A0A",
+      "level": "Adopted"
+    },
+    {
+      "name": "Day of Week",
+      "type": "org.bluetooth.characteristic.day_of_week",
+      "number": "0x2A09",
+      "level": "Adopted"
+    },
+    {
+      "name": "Descriptor Value Changed",
+      "type": "org.bluetooth.characteristic.descriptor_value_changed",
+      "number": "0x2A7D",
+      "level": "Adopted"
+    },
+    {
+      "name": "Device Name",
+      "type": "org.bluetooth.characteristic.gap.device_name",
+      "number": "0x2A00",
+      "level": "Adopted"
+    },
+    {
+      "name": "Dew Point",
+      "type": "org.bluetooth.characteristic.dew_point",
+      "number": "0x2A7B",
+      "level": "Adopted"
+    },
+    {
+      "name": "Digital",
+      "type": "org.bluetooth.characteristic.digital",
+      "number": "0x2A56",
+      "level": "Adopted"
+    },
+    {
+      "name": "DST Offset",
+      "type": "org.bluetooth.characteristic.dst_offset",
+      "number": "0x2A0D",
+      "level": "Adopted"
+    },
+    {
+      "name": "Elevation",
+      "type": "org.bluetooth.characteristic.elevation",
+      "number": "0x2A6C",
+      "level": "Adopted"
+    },
+    {
+      "name": "Email Address",
+      "type": "org.bluetooth.characteristic.email_address",
+      "number": "0x2A87",
+      "level": "Adopted"
+    },
+    {
+      "name": "Exact Time 256",
+      "type": "org.bluetooth.characteristic.exact_time_256",
+      "number": "0x2A0C",
+      "level": "Adopted"
+    },
+    {
+      "name": "Fat Burn Heart Rate Lower Limit",
+      "type": "org.bluetooth.characteristic.fat_burn_heart_rate_lower_limit",
+      "number": "0x2A88",
+      "level": "Adopted"
+    },
+    {
+      "name": "Fat Burn Heart Rate Upper Limit",
+      "type": "org.bluetooth.characteristic.fat_burn_heart_rate_upper_limit",
+      "number": "0x2A89",
+      "level": "Adopted"
+    },
+    {
+      "name": "Firmware Revision String",
+      "type": "org.bluetooth.characteristic.firmware_revision_string",
+      "number": "0x2A26",
+      "level": "Adopted"
+    },
+    {
+      "name": "First Name",
+      "type": "org.bluetooth.characteristic.first_name",
+      "number": "0x2A8A",
+      "level": "Adopted"
+    },
+    {
+      "name": "Five Zone Heart Rate Limits",
+      "type": "org.bluetooth.characteristic.five_zone_heart_rate_limits",
+      "number": "0x2A8B",
+      "level": "Adopted"
+    },
+    {
+      "name": "Floor Number",
+      "type": "org.bluetooth.characteristic.floor_number",
+      "number": "0x2AB2",
+      "level": "Adopted"
+    },
+    {
+      "name": "Gender",
+      "type": "org.bluetooth.characteristic.gender",
+      "number": "0x2A8C",
+      "level": "Adopted"
+    },
+    {
+      "name": "Glucose Feature",
+      "type": "org.bluetooth.characteristic.glucose_feature",
+      "number": "0x2A51",
+      "level": "Adopted"
+    },
+    {
+      "name": "Glucose Measurement",
+      "type": "org.bluetooth.characteristic.glucose_measurement",
+      "number": "0x2A18",
+      "level": "Adopted"
+    },
+    {
+      "name": "Glucose Measurement Context",
+      "type": "org.bluetooth.characteristic.glucose_measurement_context",
+      "number": "0x2A34",
+      "level": "Adopted"
+    },
+    {
+      "name": "Gust Factor",
+      "type": "org.bluetooth.characteristic.gust_factor",
+      "number": "0x2A74",
+      "level": "Adopted"
+    },
+    {
+      "name": "Hardware Revision String",
+      "type": "org.bluetooth.characteristic.hardware_revision_string",
+      "number": "0x2A27",
+      "level": "Adopted"
+    },
+    {
+      "name": "Heart Rate Control Point",
+      "type": "org.bluetooth.characteristic.heart_rate_control_point",
+      "number": "0x2A39",
+      "level": "Adopted"
+    },
+    {
+      "name": "Heart Rate Max",
+      "type": "org.bluetooth.characteristic.heart_rate_max",
+      "number": "0x2A8D",
+      "level": "Adopted"
+    },
+    {
+      "name": "Heart Rate Measurement",
+      "type": "org.bluetooth.characteristic.heart_rate_measurement",
+      "number": "0x2A37",
+      "level": "Adopted"
+    },
+    {
+      "name": "Heat Index",
+      "type": "org.bluetooth.characteristic.heat_index",
+      "number": "0x2A7A",
+      "level": "Adopted"
+    },
+    {
+      "name": "Height",
+      "type": "org.bluetooth.characteristic.height",
+      "number": "0x2A8E",
+      "level": "Adopted"
+    },
+    {
+      "name": "HID Control Point",
+      "type": "org.bluetooth.characteristic.hid_control_point",
+      "number": "0x2A4C",
+      "level": "Adopted"
+    },
+    {
+      "name": "HID Information",
+      "type": "org.bluetooth.characteristic.hid_information",
+      "number": "0x2A4A",
+      "level": "Adopted"
+    },
+    {
+      "name": "Hip Circumference",
+      "type": "org.bluetooth.characteristic.hip_circumference",
+      "number": "0x2A8F",
+      "level": "Adopted"
+    },
+    {
+      "name": "Humidity",
+      "type": "org.bluetooth.characteristic.humidity",
+      "number": "0x2A6F",
+      "level": "Adopted"
+    },
+    {
+      "name": "IEEE 11073-20601 Regulatory Certification Data List",
+      "type": "org.bluetooth.characteristic.ieee_11073-20601_regulatory_certification_data_list",
+      "number": "0x2A2A",
+      "level": "Adopted"
+    },
+    {
+      "name": "Indoor Positioning Configuration",
+      "type": "org.bluetooth.characteristic.indoor_positioning_configuration",
+      "number": "0x2AAD",
+      "level": "Adopted"
+    },
+    {
+      "name": "Intermediate Cuff Pressure",
+      "type": "org.bluetooth.characteristic.intermediate_blood_pressure",
+      "number": "0x2A36",
+      "level": "Adopted"
+    },
+    {
+      "name": "Intermediate Temperature",
+      "type": "org.bluetooth.characteristic.intermediate_temperature",
+      "number": "0x2A1E",
+      "level": "Adopted"
+    },
+    {
+      "name": "Irradiance",
+      "type": "org.bluetooth.characteristic.irradiance",
+      "number": "0x2A77",
+      "level": "Adopted"
+    },
+    {
+      "name": "Language",
+      "type": "org.bluetooth.characteristic.language",
+      "number": "0x2AA2",
+      "level": "Adopted"
+    },
+    {
+      "name": "Last Name",
+      "type": "org.bluetooth.characteristic.last_name",
+      "number": "0x2A90",
+      "level": "Adopted"
+    },
+    {
+      "name": "Latitude",
+      "type": "org.bluetooth.characteristic.latitude",
+      "number": "0x2AAE",
+      "level": "Adopted"
+    },
+    {
+      "name": "LN Control Point",
+      "type": "org.bluetooth.characteristic.ln_control_point",
+      "number": "0x2A6B",
+      "level": "Adopted"
+    },
+    {
+      "name": "LN Feature",
+      "type": "org.bluetooth.characteristic.ln_feature",
+      "number": "0x2A6A",
+      "level": "Adopted"
+    },
+    {
+      "name": "Local East Coordinate",
+      "type": "org.bluetooth.characteristic.local_east_coordinate.xml",
+      "number": "0x2AB1",
+      "level": "Adopted"
+    },
+    {
+      "name": "Local North Coordinate",
+      "type": "org.bluetooth.characteristic.local_north_coordinate",
+      "number": "0x2AB0",
+      "level": "Adopted"
+    },
+    {
+      "name": "Local Time Information",
+      "type": "org.bluetooth.characteristic.local_time_information",
+      "number": "0x2A0F",
+      "level": "Adopted"
+    },
+    {
+      "name": "Location and Speed",
+      "type": "org.bluetooth.characteristic.location_and_speed",
+      "number": "0x2A67",
+      "level": "Adopted"
+    },
+    {
+      "name": "Location Name",
+      "type": "org.bluetooth.characteristic.location_name",
+      "number": "0x2AB5",
+      "level": "Adopted"
+    },
+    {
+      "name": "Longitude",
+      "type": "org.bluetooth.characteristic.longitude",
+      "number": "0x2AAF",
+      "level": "Adopted"
+    },
+    {
+      "name": "Magnetic Declination",
+      "type": "org.bluetooth.characteristic.magnetic_declination",
+      "number": "0x2A2C",
+      "level": "Adopted"
+    },
+    {
+      "name": "Magnetic Flux Density - 2D",
+      "type": "org.bluetooth.characteristic.magnetic_flux_density_2D",
+      "number": "0x2AA0",
+      "level": "Adopted"
+    },
+    {
+      "name": "Magnetic Flux Density - 3D",
+      "type": "org.bluetooth.characteristic.magnetic_flux_density_3D",
+      "number": "0x2AA1",
+      "level": "Adopted"
+    },
+    {
+      "name": "Manufacturer Name String",
+      "type": "org.bluetooth.characteristic.manufacturer_name_string",
+      "number": "0x2A29",
+      "level": "Adopted"
+    },
+    {
+      "name": "Maximum Recommended Heart Rate",
+      "type": "org.bluetooth.characteristic.maximum_recommended_heart_rate",
+      "number": "0x2A91",
+      "level": "Adopted"
+    },
+    {
+      "name": "Measurement Interval",
+      "type": "org.bluetooth.characteristic.measurement_interval",
+      "number": "0x2A21",
+      "level": "Adopted"
+    },
+    {
+      "name": "Model Number String",
+      "type": "org.bluetooth.characteristic.model_number_string",
+      "number": "0x2A24",
+      "level": "Adopted"
+    },
+    {
+      "name": "Navigation",
+      "type": "org.bluetooth.characteristic.navigation",
+      "number": "0x2A68",
+      "level": "Adopted"
+    },
+    {
+      "name": "New Alert",
+      "type": "org.bluetooth.characteristic.new_alert",
+      "number": "0x2A46",
+      "level": "Adopted"
+    },
+    {
+      "name": "Peripheral Preferred Connection Parameters",
+      "type": "org.bluetooth.characteristic.gap.peripheral_preferred_connection_parameters",
+      "number": "0x2A04",
+      "level": "Adopted"
+    },
+    {
+      "name": "Peripheral Privacy Flag",
+      "type": "org.bluetooth.characteristic.gap.peripheral_privacy_flag",
+      "number": "0x2A02",
+      "level": "Adopted"
+    },
+    {
+      "name": "PLX Continuous Measurement",
+      "type": "org.bluetooth.characteristic.plx_continuous_measurement",
+      "number": "0x2A5F",
+      "level": "Adopted"
+    },
+    {
+      "name": "PLX Features",
+      "type": "org.bluetooth.characteristic.plx_features",
+      "number": "0x2A60",
+      "level": "Adopted"
+    },
+    {
+      "name": "PLX Spot-Check Measurement",
+      "type": "org.bluetooth.characteristic.plx_spot_check_measurement",
+      "number": "0x2A5E",
+      "level": "Adopted"
+    },
+    {
+      "name": "PnP ID",
+      "type": "org.bluetooth.characteristic.pnp_id",
+      "number": "0x2A50",
+      "level": "Adopted"
+    },
+    {
+      "name": "Pollen Concentration",
+      "type": "org.bluetooth.characteristic.pollen_concentration",
+      "number": "0x2A75",
+      "level": "Adopted"
+    },
+    {
+      "name": "Position Quality",
+      "type": "org.bluetooth.characteristic.position_quality",
+      "number": "0x2A69",
+      "level": "Adopted"
+    },
+    {
+      "name": "Pressure",
+      "type": "org.bluetooth.characteristic.pressure",
+      "number": "0x2A6D",
+      "level": "Adopted"
+    },
+    {
+      "name": "Protocol Mode",
+      "type": "org.bluetooth.characteristic.protocol_mode",
+      "number": "0x2A4E",
+      "level": "Adopted"
+    },
+    {
+      "name": "Rainfall",
+      "type": "org.bluetooth.characteristic.rainfall",
+      "number": "0x2A78",
+      "level": "Adopted"
+    },
+    {
+      "name": "Reconnection Address",
+      "type": "org.bluetooth.characteristic.gap.reconnection_address",
+      "number": "0x2A03",
+      "level": "Adopted"
+    },
+    {
+      "name": "Record Access Control Point",
+      "type": "org.bluetooth.characteristic.record_access_control_point",
+      "number": "0x2A52",
+      "level": "Adopted"
+    },
+    {
+      "name": "Reference Time Information",
+      "type": "org.bluetooth.characteristic.reference_time_information",
+      "number": "0x2A14",
+      "level": "Adopted"
+    },
+    {
+      "name": "Report",
+      "type": "org.bluetooth.characteristic.report",
+      "number": "0x2A4D",
+      "level": "Adopted"
+    },
+    {
+      "name": "Report Map",
+      "type": "org.bluetooth.characteristic.report_map",
+      "number": "0x2A4B",
+      "level": "Adopted"
+    },
+    {
+      "name": "Resting Heart Rate",
+      "type": "org.bluetooth.characteristic.resting_heart_rate",
+      "number": "0x2A92",
+      "level": "Adopted"
+    },
+    {
+      "name": "Ringer Control Point",
+      "type": "org.bluetooth.characteristic.ringer_control_point",
+      "number": "0x2A40",
+      "level": "Adopted"
+    },
+    {
+      "name": "Ringer Setting",
+      "type": "org.bluetooth.characteristic.ringer_setting",
+      "number": "0x2A41",
+      "level": "Adopted"
+    },
+    {
+      "name": "RSC Feature",
+      "type": "org.bluetooth.characteristic.rsc_feature",
+      "number": "0x2A54",
+      "level": "Adopted"
+    },
+    {
+      "name": "RSC Measurement",
+      "type": "org.bluetooth.characteristic.rsc_measurement",
+      "number": "0x2A53",
+      "level": "Adopted"
+    },
+    {
+      "name": "SC Control Point",
+      "type": "org.bluetooth.characteristic.sc_control_point",
+      "number": "0x2A55",
+      "level": "Adopted"
+    },
+    {
+      "name": "Scan Interval Window",
+      "type": "org.bluetooth.characteristic.scan_interval_window",
+      "number": "0x2A4F",
+      "level": "Adopted"
+    },
+    {
+      "name": "Scan Refresh",
+      "type": "org.bluetooth.characteristic.scan_refresh",
+      "number": "0x2A31",
+      "level": "Adopted"
+    },
+    {
+      "name": "Sensor Location",
+      "type": "org.bluetooth.characteristic.sensor_location",
+      "number": "0x2A5D",
+      "level": "Adopted"
+    },
+    {
+      "name": "Serial Number String",
+      "type": "org.bluetooth.characteristic.serial_number_string",
+      "number": "0x2A25",
+      "level": "Adopted"
+    },
+    {
+      "name": "Service Changed",
+      "type": "org.bluetooth.characteristic.gatt.service_changed",
+      "number": "0x2A05",
+      "level": "Adopted"
+    },
+    {
+      "name": "Software Revision String",
+      "type": "org.bluetooth.characteristic.software_revision_string",
+      "number": "0x2A28",
+      "level": "Adopted"
+    },
+    {
+      "name": "Sport Type for Aerobic and Anaerobic Thresholds",
+      "type": "org.bluetooth.characteristic.sport_type_for_aerobic_and_anaerobic_thresholds",
+      "number": "0x2A93",
+      "level": "Adopted"
+    },
+    {
+      "name": "Supported New Alert Category",
+      "type": "org.bluetooth.characteristic.supported_new_alert_category",
+      "number": "0x2A47",
+      "level": "Adopted"
+    },
+    {
+      "name": "Supported Unread Alert Category",
+      "type": "org.bluetooth.characteristic.supported_unread_alert_category",
+      "number": "0x2A48",
+      "level": "Adopted"
+    },
+    {
+      "name": "System ID",
+      "type": "org.bluetooth.characteristic.system_id",
+      "number": "0x2A23",
+      "level": "Adopted"
+    },
+    {
+      "name": "Temperature",
+      "type": "org.bluetooth.characteristic.temperature",
+      "number": "0x2A6E",
+      "level": "Adopted"
+    },
+    {
+      "name": "Temperature Measurement",
+      "type": "org.bluetooth.characteristic.temperature_measurement",
+      "number": "0x2A1C",
+      "level": "Adopted"
+    },
+    {
+      "name": "Temperature Type",
+      "type": "org.bluetooth.characteristic.temperature_type",
+      "number": "0x2A1D",
+      "level": "Adopted"
+    },
+    {
+      "name": "Three Zone Heart Rate Limits",
+      "type": "org.bluetooth.characteristic.three_zone_heart_rate_limits",
+      "number": "0x2A94",
+      "level": "Adopted"
+    },
+    {
+      "name": "Time Accuracy",
+      "type": "org.bluetooth.characteristic.time_accuracy",
+      "number": "0x2A12",
+      "level": "Adopted"
+    },
+    {
+      "name": "Time Source",
+      "type": "org.bluetooth.characteristic.time_source",
+      "number": "0x2A13",
+      "level": "Adopted"
+    },
+    {
+      "name": "Time Update Control Point",
+      "type": "org.bluetooth.characteristic.time_update_control_point",
+      "number": "0x2A16",
+      "level": "Adopted"
+    },
+    {
+      "name": "Time Update State",
+      "type": "org.bluetooth.characteristic.time_update_state",
+      "number": "0x2A17",
+      "level": "Adopted"
+    },
+    {
+      "name": "Time with DST",
+      "type": "org.bluetooth.characteristic.time_with_dst",
+      "number": "0x2A11",
+      "level": "Adopted"
+    },
+    {
+      "name": "Time Zone",
+      "type": "org.bluetooth.characteristic.time_zone",
+      "number": "0x2A0E",
+      "level": "Adopted"
+    },
+    {
+      "name": "True Wind Direction",
+      "type": "org.bluetooth.characteristic.true_wind_direction",
+      "number": "0x2A71",
+      "level": "Adopted"
+    },
+    {
+      "name": "True Wind Speed",
+      "type": "org.bluetooth.characteristic.true_wind_speed",
+      "number": "0x2A70",
+      "level": "Adopted"
+    },
+    {
+      "name": "Two Zone Heart Rate Limit",
+      "type": "org.bluetooth.characteristic.two_zone_heart_rate_limit",
+      "number": "0x2A95",
+      "level": "Adopted"
+    },
+    {
+      "name": "Tx Power Level",
+      "type": "org.bluetooth.characteristic.tx_power_level",
+      "number": "0x2A07",
+      "level": "Adopted"
+    },
+    {
+      "name": "Uncertainty",
+      "type": "org.bluetooth.characteristic.uncertainty",
+      "number": "0x2AB4",
+      "level": "Adopted"
+    },
+    {
+      "name": "Unread Alert Status",
+      "type": "org.bluetooth.characteristic.unread_alert_status",
+      "number": "0x2A45",
+      "level": "Adopted"
+    },
+    {
+      "name": "User Control Point",
+      "type": "org.bluetooth.characteristic.user_control_point",
+      "number": "0x2A9F",
+      "level": "Adopted"
+    },
+    {
+      "name": "User Index",
+      "type": "org.bluetooth.characteristic.user_index",
+      "number": "0x2A9A",
+      "level": "Adopted"
+    },
+    {
+      "name": "UV Index",
+      "type": "org.bluetooth.characteristic.uv_index",
+      "number": "0x2A76",
+      "level": "Adopted"
+    },
+    {
+      "name": "VO2 Max",
+      "type": "org.bluetooth.characteristic.vo2_max",
+      "number": "0x2A96",
+      "level": "Adopted"
+    },
+    {
+      "name": "Waist Circumference ",
+      "type": "org.bluetooth.characteristic.waist_circumference",
+      "number": "0x2A97",
+      "level": "Adopted"
+    },
+    {
+      "name": "Weight",
+      "type": "org.bluetooth.characteristic.weight",
+      "number": "0x2A98",
+      "level": "Adopted"
+    },
+    {
+      "name": "Weight Measurement",
+      "type": "org.bluetooth.characteristic.weight_measurement",
+      "number": "0x2A9D",
+      "level": "Adopted"
+    },
+    {
+      "name": "Weight Scale Feature",
+      "type": "org.bluetooth.characteristic.weight_scale_feature",
+      "number": "0x2A9E",
+      "level": "Adopted"
+    },
+    {
+      "name": "Wind Chill",
+      "type": "org.bluetooth.characteristic.wind_chill",
+      "number": "0x2A79",
+      "level": "Adopted"
+    },
+    {
+      "name": "",
+      "type": "",
+      "number": "",
+      "level": ""
+    }
+  ],
+  "descriptors": [
+    {
+      "name": "Characteristic Extended Properties",
+      "type": "org.bluetooth.descriptor.gatt.characteristic_extended_properties",
+      "number": "0x2900",
+      "level": "Adopted"
+    },
+    {
+      "name": "Characteristic User Description",
+      "type": "org.bluetooth.descriptor.gatt.characteristic_user_description",
+      "number": "0x2901",
+      "level": "Adopted"
+    },
+    {
+      "name": "Client Characteristic Configuration",
+      "type": "org.bluetooth.descriptor.gatt.client_characteristic_configuration",
+      "number": "0x2902",
+      "level": "Adopted"
+    },
+    {
+      "name": "Server Characteristic Configuration",
+      "type": "org.bluetooth.descriptor.gatt.server_characteristic_configuration",
+      "number": "0x2903",
+      "level": "Adopted"
+    },
+    {
+      "name": "Characteristic Presentation Format",
+      "type": "org.bluetooth.descriptor.gatt.characteristic_presentation_format",
+      "number": "0x2904",
+      "level": "Adopted"
+    },
+    {
+      "name": "Characteristic Aggregate Format",
+      "type": "org.bluetooth.descriptor.gatt.characteristic_aggregate_format",
+      "number": "0x2905",
+      "level": "Adopted"
+    },
+    {
+      "name": "Valid Range",
+      "type": "org.bluetooth.descriptor.valid_range",
+      "number": "0x2906",
+      "level": "Adopted"
+    },
+    {
+      "name": "External Report Reference",
+      "type": "org.bluetooth.descriptor.external_report_reference",
+      "number": "0x2907",
+      "level": "Adopted"
+    },
+    {
+      "name": "Report Reference",
+      "type": "org.bluetooth.descriptor.report_reference",
+      "number": "0x2908",
+      "level": "Adopted"
+    },
+    {
+      "name": "Value Trigger Setting",
+      "type": "org.bluetooth.descriptor.value_trigger_setting",
+      "number": "0x290A",
+      "level": "Adopted"
+    },
+    {
+      "name": "Environmental Sensing Configuration",
+      "type": "org.bluetooth.descriptor.es_configuration",
+      "number": "0x290B",
+      "level": "Adopted"
+    },
+    {
+      "name": "Environmental Sensing Measurement",
+      "type": "org.bluetooth.descriptor.es_measurement",
+      "number": "0x290C",
+      "level": "Adopted"
+    },
+    {
+      "name": "Environmental Sensing Trigger Setting",
+      "type": "org.bluetooth.descriptor.es_trigger_setting",
+      "number": "0x290D",
+      "level": "Adopted"
+    }
+  ]
+}

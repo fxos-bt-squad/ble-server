@@ -1,0 +1,62 @@
+[
+  {
+    "uuid": "00001811-0000-1000-8000-00805f9b34fb",
+    "isPrimary": true,
+    "characteristics": [
+      {
+        "uuid": "00002a47-0000-1000-8000-00805f9b34fb",
+        "permissions": ["read"],
+        "properties": ["read"],
+        "value": "",
+        "descriptors": []
+      },
+      {
+        "uuid": "00002a46-0000-1000-8000-00805f9b34fb",
+        "permissions": ["notify"],
+        "properties": ["notify"],
+        "value": "",
+        "descriptors": [
+          {
+            "uuid": "00002902-0000-1000-8000-00805f9b34fb",
+            "permissions": ["read", "write"],
+            "value": "00"
+          }
+        ]
+      },
+      {
+        "uuid": "00002a48-0000-1000-8000-00805f9b34fb",
+        "permissions": ["read"],
+        "properties": ["read"],
+        "value": "",
+        "descriptors": []
+      },
+      {
+        "uuid": "00002a45-0000-1000-8000-00805f9b34fb",
+        "permissions": ["notify"],
+        "properties": ["notify"],
+        "value": "",
+        "descriptors": [
+          {
+            "uuid": "00002902-0000-1000-8000-00805f9b34fb",
+            "permissions": ["read", "write"],
+            "value": "00"
+          }
+        ]
+      },
+      {
+        "uuid": "00002a44-0000-1000-8000-00805f9b34fb",
+        "permissions": ["notify"],
+        "properties": ["notify"],
+        "value": "",
+        "descriptors": [
+          {
+            "uuid": "00002900-0000-1000-8000-00805f9b34fb",
+            "permissions": ["read", "write"],
+            "value": "00"
+          }
+        ]
+      }
+    ],
+    "includedServices": []
+  }
+]

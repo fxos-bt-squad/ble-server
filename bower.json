@@ -1,0 +1,41 @@
+{
+  "name": "ble-server",
+  "version": "0.0.1",
+  "homepage": "https://github.com/elin-moco/ble-server",
+  "authors": [
+    "Eddie Lin <elin@mozilla.com>"
+  ],
+  "description": "Test App for Bluetooth Low Energy Server APIs.",
+  "main": "index.html",
+  "keywords": [
+    "FirefoxOS",
+    "BluetoothLE"
+  ],
+  "license": "MPL-2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "base": "gaia-components/base",
+    "evt": "gaia-components/evt#~0.4.0",
+    "font-fit": "gaia-components/font-fit#~0.3.1",
+    "pressed": "gaia-components/pressed#~0.1.2",
+    "gaia-theme": "gaia-components/gaia-theme#~0.5.1",
+    "gaia-fonts": "gaia-components/gaia-fonts#~0.2.1",
+    "gaia-icons": "gaia-components/gaia-icons#~0.9.2",
+    "gaia-header": "gaia-components/gaia-header#~0.8.4",
+    "gaia-sub-header": "gaia-components/gaia-sub-header#~0.4.0",
+    "gaia-pages": "gaia-components/gaia-pages#~0.1.0",
+    "gaia-list": "gaia-components/gaia-list#~0.2.1",
+    "gaia-text-input": "gaia-components/gaia-text-input#~0.1.2",
+    "gaia-switch": "gaia-components/gaia-switch#~0.2.1",
+    "gaia-button": "gaia-components/gaia-button#~0.0.5",
+    "gaia-checkbox": "gaia-components/gaia-checkbox#~0.1.0",
+    "gaia-dialog": "gaia-components/gaia-dialog#~0.2.3",
+    "gaia-toast": "gaia-components/gaia-toast"
+  }
+}

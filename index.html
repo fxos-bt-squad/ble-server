@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta charset="utf-8"/>
+  <title>BLE Server</title>
+  <link rel="stylesheet" type="text/css" href="bower_components/base/base.css">
+  <link rel="stylesheet" type="text/css" href="bower_components/gaia-theme/gaia-theme.css">
+  <link rel="stylesheet" type="text/css" href="bower_components/gaia-fonts/style.css">
+  <link rel="stylesheet" type="text/css" href="bower_components/gaia-icons/gaia-icons.css">
+  <link rel="stylesheet" href="css/main.css" type="text/css"/>
+
+  <script src="bower_components/evt/index.js"></script>
+  <script src="bower_components/drag/drag.js"></script>
+  <script src="bower_components/pressed/pressed.js"></script>
+  <script src="bower_components/font-fit/font-fit.js"></script>
+  <script src="bower_components/gaia-component/gaia-component.js"></script>
+  <script src="bower_components/gaia-icons/gaia-icons.js"></script>
+  <script src="bower_components/gaia-theme/lib/gaia-theme-selector.js"></script>
+  <script src="bower_components/gaia-header/gaia-header.js"></script>
+  <script src="bower_components/gaia-sub-header/gaia-sub-header.js"></script>
+  <script src="bower_components/gaia-text-input/gaia-text-input.js"></script>
+  <script src="bower_components/gaia-text-input/gaia-text-input-multiline.js"></script>
+  <script src="bower_components/gaia-text-input/gaia-text-input-pin.js"></script>
+  <script src="bower_components/gaia-list/gaia-list.js"></script>
+  <script src="bower_components/gaia-checkbox/gaia-checkbox.js"></script>
+  <script src="bower_components/gaia-switch/gaia-switch.js"></script>
+  <script src="bower_components/gaia-button/gaia-button.js"></script>
+  <script src="bower_components/gaia-toast/gaia-toast.js"></script>
+  <script src="bower_components/gaia-dialog/gaia-dialog.js"></script>
+  <script src="bower_components/gaia-dialog/gaia-dialog-alert.js"></script>
+  <script src="bower_components/gaia-pages/gaia-pages.js"></script>
+  <script type="text/javascript" defer src="js/main.js"></script>
+  
+</head>
+<body class="theme-settings">
+  <gaia-pages>
+    <section data-route="/connect">
+      <gaia-header action="back">
+        <h1>Connections</h1>
+        <a class="disconnected"
+           data-icon="link" aria-label="Connect" data-l10n-id="Connect"></a>
+      </gaia-header>
+      <gaia-list>
+        <a class="space-bewteen">
+          <label for="scan-switch">
+            <h3>Scan LE Devices</h3>
+          </label>
+          <gaia-switch id="scan-switch" class="divided"></gaia-switch>
+        </a>
+      </gaia-list>
+      <gaia-sub-header>Devices found</gaia-sub-header>
+      <gaia-list id="device-list">
+      </gaia-list>
+    </section>
+    <section data-route="/">
+      <gaia-header>
+        <h1>BLE Server</h1>
+        <a class="disconnected" href="#/connect"
+           data-icon="link" aria-label="Connect" data-l10n-id="Connect"></a>
+      </gaia-header>
+      <gaia-list id="service-list">
+      </gaia-list>
+    </section>
+    <section data-route="/service">
+      <gaia-header action="back">
+        <h1>Service</h1>
+        <a class="disconnected" href="#/connect"
+           data-icon="link" aria-label="Connect" data-l10n-id="Connect"></a>
+      </gaia-header>
+      <gaia-list>
+        <a>
+          <div>
+            <h3>UUID</h3>
+            <p id="service-uuid"></p>
+          </div>
+        </a>
+        <a>
+          <div>
+            <h3>Is Primary</h3>
+            <p id="service-is-primary"></p>
+          </div>
+        </a>
+        <a>
+          <div>
+            <h3>Instance ID</h3>
+            <p id="service-instance-id"></p>
+          </div>
+        </a>
+      </gaia-list>
+      <gaia-sub-header>Characteristics</gaia-sub-header>
+      <gaia-list id="characteristic-list">
+      </gaia-list>
+      <gaia-sub-header>Included Services</gaia-sub-header>
+      <gaia-list id="inc-service-list">
+      </gaia-list>
+    </section>
+    <section data-route="/characteristic">
+      <gaia-header action="back">
+        <h1>Characteristic</h1>
+        <a class="disconnected" href="#/connect"
+           data-icon="link" aria-label="Connect" data-l10n-id="Connect"></a>
+      </gaia-header>
+      <gaia-list>
+        <a>
+          <div>
+            <h3>UUID</h3>
+            <p id="char-uuid"></p>
+          </div>
+        </a>
+        <a>
+          <div>
+            <h3>Instance ID</h3>
+            <p id="char-instance-id"></p>
+          </div>
+        </a>
+        <a>
+          <div>
+            <h3>Value</h3>
+            <p id="char-value"></p>
+          </div>
+        </a>
+        <a>
+          <div>
+            <h3>Permissions</h3>
+            <p id="char-permissions"></p>
+          </div>
+        </a>
+        <a>
+          <div>
+            <h3>Properties</h3>
+            <p id="char-properties"></p>
+          </div>
+        </a>
+        <a>
+          <div class="custom-response">
+            <h3>Custom Response <gaia-switch id="resp-switch" class="divided"></gaia-switch></h3>
+            <p>Status: <gaia-text-input id="send-char-status" placeholder="Status code"></gaia-text-input></p>
+            <p>Value: <gaia-text-input id="send-char-value" placeholder="Response value"></gaia-text-input></p>
+            <p><gaia-button id="send-char-response" class="send-response">Send Response</gaia-button></p>
+            <p>
+              <gaia-button id="notify-change-button">Notify Change</gaia-button>
+              <span class="label-switch">
+                confirm
+                <gaia-switch id="notify-confirm-switch" class="divided"></gaia-switch>
+              </span>
+            </p>
+          </div>
+        </a>
+      </gaia-list>
+      <gaia-sub-header>Descriptors</gaia-sub-header>
+      <gaia-list id="descriptor-list">
+      </gaia-list>
+    </section>
+    </section>
+    <section data-route="/descriptor">
+      <gaia-header action="back">
+        <h1>Descriptor</h1>
+        <a class="disconnected" href="#/connect"
+           data-icon="link" aria-label="Connect" data-l10n-id="Connect"></a>
+      </gaia-header>
+      <gaia-list>
+        <a>
+          <div>
+            <h3>UUID</h3>
+            <p id="desc-uuid"></p>
+          </div>
+        </a>
+        <a>
+          <div>
+            <h3>Value</h3>
+            <p id="desc-value"></p>
+          </div>
+        </a>
+        <a>
+          <div>
+            <h3>Permissions</h3>
+            <p id="desc-permissions"></p>
+          </div>
+        </a>
+        <a>
+          <div class="custom-response">
+            <h3>Custom Response <gaia-switch id="resp-switch" class="divided"></gaia-switch></h3>
+            <p>Status: <gaia-text-input id="send-desc-status" placeholder="Status code"></gaia-text-input></p>
+            <p>Value: <gaia-text-input id="send-desc-value" placeholder="Response value"></gaia-text-input></p>
+            <p><gaia-button id="send-desc-response" class="send-response">Send Response</gaia-button></p>
+          </div>
+        </a>
+      </gaia-list>
+    </section>
+  </gaia-pages>
+  <gaia-toast id="toast" timeout="2000"></gaia-toast>
+</body>
+</html>
